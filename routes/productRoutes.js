@@ -2,7 +2,7 @@ const express=require('express')
 const Product=require('../models/Product')
 const router=express.Router()
 
-router.post('/add',async(req,res)=>{
+router.post('/product/add',async(req,res)=>{
     try{
          const{productName,productPrice,productUnit,productDescription}=req.body
 
@@ -15,6 +15,7 @@ router.post('/add',async(req,res)=>{
         }
         const prodObj=new Product({productName,productPrice,productUnit,productDescription})
         await prodObj.save()
+
         res.json({
           status:true,message:"Product added successfully"
       })       
@@ -22,10 +23,11 @@ router.post('/add',async(req,res)=>{
     catch(err){
         res.json({
             status:false,
-            message: err
+            message: err.message||"server error"
         })
   }
-  router.get('/get',async(req,res)=>{
+})
+  router.get('/product/get',async(req,res)=>{
     try{
             const results=await Product.find()
             res.json({
@@ -35,9 +37,10 @@ router.post('/add',async(req,res)=>{
     catch(err){
         res.json({
             status:false,
-            message: err
+            message: err.message || "server error"
         })
   }
   })
-})
-module.exports=router
+
+
+module.exports=router;

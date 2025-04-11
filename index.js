@@ -4,17 +4,17 @@ const bodyParser=require('body-parser');
 
 const mongoose=require('mongoose');
 const User = require('./models/User')
-const productRoutes=require('./routes/productRoutes')
+const productRoutes =require('./routes/productRoutes')
+
 
 const server=express();
+server.use(express.json())
 server.use(cors())
 server.use(bodyParser.json());
-server.use('/product',productRoutes)
+server.use('/',productRoutes)
 
 mongoose.connect('mongodb+srv://pratiksha:Pratiksha%40123@leadsoft.bfw87k4.mongodb.net/').
 then(()=>console.log('Database Connected')).catch((err)=>console.log(err))
-
-
 
 server.post('/register',async(req,res)=>{
     try{
